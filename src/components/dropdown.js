@@ -1,18 +1,26 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
-import "../styles/app.css";
+import { FormControl, InputLabel, Select } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
+    marginBottom: theme.spacing(3),
     minWidth: 300,
   },
 }));
 
-function Dropdown({ name, label, selection, setSelection, fetchData }) {
+function Dropdown({
+  name,
+  label,
+  menuItem,
+  selection,
+  setSelection,
+  fetchData,
+  fetchParams,
+}) {
   const classes = useStyles();
-  const { status, data, error } = fetchData();
+  const { status, data, error } = fetchData(fetchParams);
 
   const handleChange = (event) => {
     setSelection(event.target.value);
@@ -34,16 +42,22 @@ function Dropdown({ name, label, selection, setSelection, fetchData }) {
             value={selection}
             onChange={handleChange}
           >
-            {data.map((item) => (
-              <MenuItem key={item.Route} value={item.Route}>
-                {item.Description}
-              </MenuItem>
-            ))}
+            {data.map(menuItem)}
           </Select>
         </FormControl>
       )}
     </div>
   );
 }
+
+Dropdown.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  selection: PropTypes.string,
+  setSelection: PropTypes.func,
+  fetchData: PropTypes.func,
+  menuItem: PropTypes.func,
+  parentValue: PropTypes.string,
+};
 
 export default Dropdown;
