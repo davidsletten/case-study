@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 function useDepartures(selectedRoute, selectedDirection, selectedStop) {
-  return useQuery("departures", async () => {
+  return useQuery(["departures", selectedStop], async () => {
     const { data } = await axios.get(
       `https://svc.metrotransit.org/NexTrip/${selectedRoute}/${selectedDirection}/${selectedStop}`
     );

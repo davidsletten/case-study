@@ -12,6 +12,15 @@ function App() {
   const [selectedRoute, setSelectedRoute] = useState("");
   const [selectedDirection, setSelectedDirection] = useState("");
   const [selectedStop, setSelectedStop] = useState("");
+  const selectRoute = (route) => {
+    setSelectedStop("");
+    setSelectedDirection("");
+    setSelectedRoute(route);
+  };
+  const selectDirection = (direction) => {
+    setSelectedStop("");
+    setSelectedDirection(direction);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -21,11 +30,11 @@ function App() {
       </header>
       <main>
         <h3>Real-time Departures</h3>
-        <Routes selection={selectedRoute} setSelection={setSelectedRoute} />
+        <Routes selection={selectedRoute} setSelection={selectRoute} />
         {!!selectedRoute && (
           <Directions
             selection={selectedDirection}
-            setSelection={setSelectedDirection}
+            setSelection={selectDirection}
             selectedRoute={selectedRoute}
           />
         )}

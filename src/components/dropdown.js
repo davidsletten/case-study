@@ -20,7 +20,6 @@ function Dropdown({
 }) {
   const classes = useStyles();
   const { status, data, error } = optionData;
-
   const handleChange = (event) => {
     setSelection(event.target.value);
   };
