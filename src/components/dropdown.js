@@ -16,11 +16,10 @@ function Dropdown({
   menuItem,
   selection,
   setSelection,
-  fetchData,
-  fetchParams,
+  optionData,
 }) {
   const classes = useStyles();
-  const { status, data, error } = fetchData(fetchParams);
+  const { status, data, error } = optionData;
 
   const handleChange = (event) => {
     setSelection(event.target.value);
@@ -51,13 +50,12 @@ function Dropdown({
 }
 
 Dropdown.propTypes = {
-  name: PropTypes.string,
-  label: PropTypes.string,
-  selection: PropTypes.string,
-  setSelection: PropTypes.func,
-  fetchData: PropTypes.func,
-  menuItem: PropTypes.func,
-  parentValue: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  menuItem: PropTypes.func.isRequired,
+  selection: PropTypes.string.isRequired,
+  setSelection: PropTypes.func.isRequired,
+  optionData: PropTypes.object.isRequired,
 };
 
 export default Dropdown;

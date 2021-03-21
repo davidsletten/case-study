@@ -1,4 +1,5 @@
-import { useQueryClient } from "react-query";
+import axios from "axios";
+import { useQuery, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
@@ -27,14 +28,28 @@ const useStyles = makeStyles({
   },
 });
 
-function Departures({ route, direction, stop, fetchData }) {
-  const { status, data, error } = fetchData(route, direction, stop);
+function useDepartures(selectedRoute, selectedDirection, selectedStop) {
+  return useQuery("departures", async () => {
+    const { data } = await axios.get(
+      `https://svc.metrotransit.org/NexTrip/${selectedRoute}/${selectedDirection}/${selectedStop}`
+    );
+    return data;
+  });
+}
+
+function Departures({ selectedRoute, selectedDirection, selectedStop }) {
+  const { status, data, error } = useDepartures(
+    selectedRoute,
+    selectedDirection,
+    selectedStop
+  );
   const classes = useStyles();
   const queryClient = useQueryClient();
   const routeDescription = queryClient.getQueryData("routes")
-    ? queryClient.getQueryData("routes").find((item) => item.Route === route)
-        .Description
-    : route;
+    ? queryClient
+        .getQueryData("routes")
+        .find((item) => item.Route === selectedRoute).Description
+    : selectedRoute;
 
   return (
     <div>
@@ -69,10 +84,9 @@ function Departures({ route, direction, stop, fetchData }) {
 }
 
 Departures.propTypes = {
-  route: PropTypes.string,
-  direction: PropTypes.string,
-  stop: PropTypes.string,
-  fetchData: PropTypes.func,
+  selectedRoute: PropTypes.string,
+  selectedDirection: PropTypes.string,
+  selectedStop: PropTypes.string,
 };
 
 export default Departures;
