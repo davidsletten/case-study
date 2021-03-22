@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { useParams } from "react-router-dom";
 import "../styles/app.css";
 import Routes from "./routes";
 import Directions from "./directions";
@@ -9,18 +10,34 @@ import Departures from "./departures";
 const queryClient = new QueryClient();
 
 function App() {
+  const { route, direction, stop } = useParams();
   const [selectedRoute, setSelectedRoute] = useState("");
   const [selectedDirection, setSelectedDirection] = useState("");
   const [selectedStop, setSelectedStop] = useState("");
-  const selectRoute = (route) => {
-    setSelectedStop("");
-    setSelectedDirection("");
-    setSelectedRoute(route);
-  };
-  const selectDirection = (direction) => {
-    setSelectedStop("");
-    setSelectedDirection(direction);
-  };
+
+  useEffect(() => {
+    const validRoute = route >= 0;
+    const validDirection = direction >= 0;
+    const validStop = !!stop;
+
+    if (!validRoute && !validDirection && !validStop) {
+      setSelectedRoute("");
+      setSelectedDirection("");
+      setSelectedStop("");
+    }
+    if (validRoute) {
+      setSelectedStop("");
+      setSelectedDirection("");
+      setSelectedRoute(route);
+    }
+    if (validDirection) {
+      setSelectedStop("");
+      setSelectedDirection(direction);
+    }
+    if (validStop) {
+      setSelectedStop(stop);
+    }
+  }, [route, direction, stop]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -30,18 +47,16 @@ function App() {
       </header>
       <main>
         <h3>Real-time Departures</h3>
-        <Routes selection={selectedRoute} setSelection={selectRoute} />
+        <Routes selection={selectedRoute} />
         {!!selectedRoute && (
           <Directions
             selection={selectedDirection}
-            setSelection={selectDirection}
             selectedRoute={selectedRoute}
           />
         )}
         {!!selectedDirection && (
           <Stops
             selection={selectedStop}
-            setSelection={setSelectedStop}
             selectedRoute={selectedRoute}
             selectedDirection={selectedDirection}
           />

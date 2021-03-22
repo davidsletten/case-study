@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
 import Dropdown from "./dropdown";
@@ -13,7 +14,9 @@ function useDirections(selectedRoute) {
   });
 }
 
-function Directions({ selection, setSelection, selectedRoute }) {
+function Directions({ selection, selectedRoute }) {
+  const history = useHistory();
+
   return (
     <Dropdown
       name="direction"
@@ -24,7 +27,9 @@ function Directions({ selection, setSelection, selectedRoute }) {
         </MenuItem>
       )}
       selection={selection}
-      setSelection={setSelection}
+      setSelection={(direction) =>
+        history.push(`/${selectedRoute}/${direction}`)
+      }
       optionData={useDirections(selectedRoute)}
     />
   );
@@ -32,7 +37,6 @@ function Directions({ selection, setSelection, selectedRoute }) {
 
 Directions.propTypes = {
   selection: PropTypes.string.isRequired,
-  setSelection: PropTypes.func.isRequired,
   selectedRoute: PropTypes.string.isRequired,
 };
 
