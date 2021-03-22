@@ -1,5 +1,11 @@
 # Case Study for Target Recruiting
 
+**During the development of this case study I made the following assumptions:**
+
+1. Target Recruiting expects to be able to change selections at any level of the dropdown hierarchy and have the experience update by correctly clearing downstream selections and populating new options.
+2. Target Recruiting expected selections to be embeded in URL params to allow navigation through choices using browser buttons in addition to allowing a specific param combo to render the correct selections and data.
+3. Target Recruiting expected a demonstration of ability and familiarity with testing tech and practices but not necessarily a certain level of code coverage.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -9,20 +15,6 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Launches the test runner in the interactive watch mode.
