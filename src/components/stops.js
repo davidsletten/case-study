@@ -6,7 +6,7 @@ import { MenuItem } from "@material-ui/core";
 import Dropdown from "./dropdown";
 
 function useStops(selectedRoute, selectedDirection) {
-  return useQuery("stops", async () => {
+  return useQuery(["stops", selectedDirection], async () => {
     const { data } = await axios.get(
       `https://svc.metrotransit.org/NexTrip/Stops/${selectedRoute}/${selectedDirection}`
     );
