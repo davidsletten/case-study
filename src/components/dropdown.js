@@ -32,7 +32,9 @@ function Dropdown({
         <span>Error: {error.message}</span>
       ) : (
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel htmlFor={`${name}-select-label`}>{label}</InputLabel>
+          <InputLabel id={`${name}-select-label`} htmlFor={`${name}-select`}>
+            {label}
+          </InputLabel>
           <Select
             labelId={`${name}-select-label`}
             id={`${name}-select`}

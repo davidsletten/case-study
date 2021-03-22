@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import App from "../components/app";
 
-function AppRouter() {
+function Router() {
   return (
-    <Router>
+    <BrowserRouter>
       <Route path="/:route?/:direction?/:stop?" children={<App />} />
-    </Router>
+    </BrowserRouter>
   );
 }
 
-export default AppRouter;
+export default Router;
