@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
 import Dropdown from "./dropdown";
 
-function useRoutes() {
+export function useRoutes() {
   return useQuery("routes", async () => {
     const { data } = await axios.get(
       "https://svc.metrotransit.org/NexTrip/Routes"

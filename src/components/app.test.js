@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { renderWithRouter } from "../testUtils";
+import { renderWithRouter } from "../testing/testUtils";
 import App from "./app";
 
 test("renders header", () => {
